@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Mes projets - AI Urban Design Planner{% endblock %}
+
+{% block content %}
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <h1><i class="bi bi-folder"></i> Mes projets</h1>
+    <a href="{% url 'projet_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nouveau projet
+    </a>
+</div>
+
+{% if projets %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Titre</th>
+                    <th>Familles</th>
+                    <th>Superficie</th>
+                    <th>Budget</th>
+                    <th>Priorité</th>
+                    <th>Créé le</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for projet in projets %}
+                    <tr>
+                        <td><strong>{{ projet.titre }}</strong></td>
+                        <td>{{ projet.nombre_familles }}</td>
+                        <td>{{ projet.surface_terrain }} ha</td>
+                        <td>
+                            <span class="badge bg-info">{{ projet.get_niveau_budget_display }}</span>
+                        </td>
+                        <td>{{ projet.get_priorite_display }}</td>
+                        <td>{{ projet.date_creation|date:"d/m/Y" }}</td>
+                        <td>
+                            <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-sm btn-info" title="Voir">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{% url 'projet_update' projet.pk %}" class="btn btn-sm btn-warning" title="Modifier">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'projet_delete' projet.pk %}" class="btn btn-sm btn-danger" title="Supprimer">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Aucun projet créé pour le moment.
+        <a href="{% url 'projet_create' %}" class="alert-link">Créer un projet</a>
+    </div>
+{% endif %}
+{% endblock %}

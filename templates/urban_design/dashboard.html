@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Tableau de bord - AI Urban Design Planner{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+    <h1 class="mb-4">
+        <i class="bi bi-speedometer2"></i> Bienvenue, {{ user.first_name|default:user.username }}!
+    </h1>
+    
+    <!-- Statistiques -->
+    <div class="row mb-5">
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm bg-primary text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Projets créés</h5>
+                    <h2 class="mb-0">{{ total_projets }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm bg-success text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Propositions générées</h5>
+                    <h2 class="mb-0">{{ total_propositions }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm bg-info text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Dernière activité</h5>
+                    <p class="mb-0 small">Aménagement urbain</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm bg-warning text-dark">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Favoris</h5>
+                    <h2 class="mb-0">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bouton créer projet -->
+    <div class="mb-5">
+        <a href="{% url 'projet_create' %}" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-circle"></i> Créer un nouveau projet
+        </a>
+    </div>
+    
+    <!-- Derniers projets -->
+    {% if derniers_projets %}
+        <h3 class="mb-4">
+            <i class="bi bi-clock-history"></i> Derniers projets
+        </h3>
+        <div class="row">
+            {% for projet in derniers_projets %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card h-100 shadow-sm hover-shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ projet.titre }}</h5>
+                            <p class="card-text text-muted small">
+                                {{ projet.nombre_familles }} familles • 
+                                {{ projet.get_priorite_display }}
+                            </p>
+                            <p class="card-text small">
+                                <strong>Budget:</strong> {{ projet.get_niveau_budget_display }}<br>
+                                <strong>Terrain:</strong> {{ projet.surface_terrain }} ha
+                            </p>
+                            <small class="text-muted d-block mb-3">
+                                Créé le {{ projet.date_creation|date:"d/m/Y" }}
+                            </small>
+                            <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-sm btn-outline-primary">
+                                Voir détails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> Vous n'avez pas encore créé de projets. 
+            <a href="{% url 'projet_create' %}" class="alert-link">Créer un projet maintenant</a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .hover-shadow:hover {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+        transition: box-shadow 0.3s ease;
+    }
+</style>
+{% endblock %}
