@@ -1,227 +1,162 @@
 {% extends "base.html" %}
 
-{% block title %}{{ projet.titre }} - AI Urban Design Planner{% endblock %}
+{% block title %}{{ projet.titre }} | CityPlanner{% endblock %}
 
 {% block content %}
-<div class="mb-4 d-flex justify-content-between align-items-center">
-    <h1><i class="bi bi-building"></i> {{ projet.titre }}</h1>
-    <div class="btn-group" role="group">
-        <a href="{% url 'projet_update' projet.pk %}" class="btn btn-warning">
-            <i class="bi bi-pencil"></i> Modifier
-        </a>
-        <a href="{% url 'projet_delete' projet.pk %}" class="btn btn-danger">
-            <i class="bi bi-trash"></i> Supprimer
-        </a>
-        <a href="{% url 'projet_list' %}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Retour
-        </a>
+<section class="page-hero">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+        <div>
+            <span class="section-kicker">Project Detail</span>
+            <h1 class="page-title"><i class="bi bi-building me-2"></i>{{ projet.titre }}</h1>
+            <p class="page-subtitle">
+                {{ projet.nombre_familles }} families • {{ projet.population_totale }} population • {{ projet.surface_terrain }} ha
+            </p>
+        </div>
+        <div class="action-bar">
+            <a href="{% url 'projet_update' projet.pk %}" class="btn btn-premium-ghost">
+                <i class="bi bi-pencil me-1"></i> Edit
+            </a>
+            <a href="{% url 'projet_delete' projet.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash me-1"></i> Delete
+            </a>
+            <a href="{% url 'projet_list' %}" class="btn btn-premium-ghost">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- Informations du projet -->
-<div class="row mb-4">
+<div class="row g-4 mb-4">
     <div class="col-lg-8">
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-light">
-                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Informations du projet</h5>
+        <div class="premium-panel">
+            <div class="section-head mb-3">
+                <h2><i class="bi bi-info-circle me-2"></i>Project Information</h2>
             </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Nombre de familles:</strong> {{ projet.nombre_familles }}
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Taille moyenne des familles:</strong> {{ projet.taille_moyenne_famille }} personnes
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Population estimée:</strong> {{ projet.population_totale }} habitants
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Superficie du terrain:</strong> {{ projet.surface_terrain }} hectares
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <strong>Niveau du budget:</strong>
-                        <span class="badge bg-info">{{ projet.get_niveau_budget_display }}</span>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Priorité d'aménagement:</strong>
-                        <span class="badge bg-primary">{{ projet.get_priorite_display }}</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <strong>Créé le:</strong> {{ projet.date_creation|date:"d/m/Y à H:i" }}
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Modifié le:</strong> {{ projet.date_modification|date:"d/m/Y à H:i" }}
-                    </div>
-                </div>
-                {% if projet.description %}
-                    <hr>
-                    <p><strong>Description:</strong></p>
-                    <p>{{ projet.description|linebreaks }}</p>
-                {% endif %}
+            <div class="row g-3">
+                <div class="col-md-6"><p class="meta-item"><span>Families:</span> {{ projet.nombre_familles }}</p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Average family size:</span> {{ projet.taille_moyenne_famille }}</p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Estimated population:</span> {{ projet.population_totale }}</p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Land area:</span> {{ projet.surface_terrain }} ha</p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Budget:</span> <span class="premium-badge">{{ projet.get_niveau_budget_display }}</span></p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Priority:</span> <span class="premium-badge">{{ projet.get_priorite_display }}</span></p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Created:</span> {{ projet.date_creation|date:"d/m/Y à H:i" }}</p></div>
+                <div class="col-md-6"><p class="meta-item"><span>Updated:</span> {{ projet.date_modification|date:"d/m/Y à H:i" }}</p></div>
             </div>
+            {% if projet.description %}
+                <div class="description-block mt-3">
+                    <h6>Description</h6>
+                    <p class="mb-0">{{ projet.description|linebreaks }}</p>
+                </div>
+            {% endif %}
         </div>
     </div>
-    
+
     <div class="col-lg-4">
-        <!-- Actions -->
-        <div class="card shadow-sm mb-4 bg-light">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0"><i class="bi bi-lightning"></i> Actions</h5>
+        <div class="premium-panel h-100">
+            <div class="section-head mb-3">
+                <h2><i class="bi bi-lightning-charge me-2"></i>Actions</h2>
             </div>
-            <div class="card-body">
-                {% if proposition %}
-                    <form method="post" action="{% url 'generer_proposition' projet.pk %}" class="mb-2">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success w-100 mb-2">
-                            <i class="bi bi-arrow-repeat"></i> Regénérer proposition
-                        </button>
-                    </form>
-                {% else %}
-                    <form method="post" action="{% url 'generer_proposition' projet.pk %}" class="mb-2">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success w-100 mb-2">
-                            <i class="bi bi-sparkles"></i> Générer proposition
-                        </button>
-                    </form>
-                {% endif %}
-                
-                {% if proposition %}
-                    <form method="post" action="{% url 'generer_prompt_image' projet.pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-info w-100">
-                            <i class="bi bi-image"></i> Générer prompt image
-                        </button>
-                    </form>
-                {% else %}
-                    <button class="btn btn-info w-100" disabled title="Créer une proposition d'abord">
-                        <i class="bi bi-image"></i> Générer prompt image
+            {% if proposition %}
+                <form method="post" action="{% url 'generer_proposition' projet.pk %}" class="mb-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-premium-primary w-100">
+                        <i class="bi bi-arrow-repeat me-1"></i> Regenerate proposal
                     </button>
-                {% endif %}
-            </div>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'generer_proposition' projet.pk %}" class="mb-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-premium-primary w-100">
+                        <i class="bi bi-stars me-1"></i> Generate proposal
+                    </button>
+                </form>
+            {% endif %}
+
+            {% if proposition %}
+                <form method="post" action="{% url 'generer_prompt_image' projet.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-premium-ghost w-100">
+                        <i class="bi bi-image me-1"></i> Generate image prompt
+                    </button>
+                </form>
+            {% else %}
+                <button class="btn btn-premium-ghost w-100" disabled title="Create a proposal first">
+                    <i class="bi bi-image me-1"></i> Generate image prompt
+                </button>
+            {% endif %}
         </div>
     </div>
 </div>
 
-<!-- Proposition d'aménagement -->
 {% if proposition %}
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-success text-white">
-            <h5 class="mb-0"><i class="bi bi-layout-text-sidebar"></i> Proposition d'aménagement</h5>
+    <div class="premium-panel mb-4">
+        <div class="section-head mb-3">
+            <h2><i class="bi bi-layout-text-sidebar-reverse me-2"></i>Generated Proposal</h2>
         </div>
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-3 mb-3">
-                    <div class="card text-center bg-light">
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted mb-2">Logements</h6>
-                            <h3 class="mb-0">{{ proposition.nombre_logements }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card text-center bg-light">
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted mb-2">Écoles</h6>
-                            <h3 class="mb-0">{{ proposition.nombre_ecoles }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card text-center bg-light">
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted mb-2">Centres de santé</h6>
-                            <h3 class="mb-0">{{ proposition.nombre_centres_sante }}</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card text-center bg-light">
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted mb-2">Marchés</h6>
-                            <h3 class="mb-0">{{ proposition.nombre_marches }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <strong>Surface des espaces verts:</strong> {{ proposition.surface_espaces_verts }} hectares
-                    <br><small class="text-muted">({{ proposition.surface_espaces_verts|floatformat:1 }}% du terrain)</small>
-                </div>
-                <div class="col-md-6">
-                    <strong>Surface des routes:</strong> {{ proposition.surface_routes }} hectares
-                    <br><small class="text-muted">({{ proposition.surface_routes|floatformat:1 }}% du terrain)</small>
-                </div>
-            </div>
-            
-            <hr>
-            
-            <div class="mb-3">
-                <strong>Description complète:</strong>
-                <div class="bg-light p-3 rounded mt-2" style="white-space: pre-wrap; font-family: monospace; font-size: 0.9rem;">{{ proposition.description }}</div>
-            </div>
-            
-            <small class="text-muted">Générée le {{ proposition.date_generation|date:"d/m/Y à H:i" }}</small>
+        <div class="row g-3 mb-3">
+            <div class="col-6 col-lg-3"><div class="showcase-card text-center"><h3>{{ proposition.nombre_logements }}</h3><p>Housing</p></div></div>
+            <div class="col-6 col-lg-3"><div class="showcase-card text-center"><h3>{{ proposition.nombre_ecoles }}</h3><p>Schools</p></div></div>
+            <div class="col-6 col-lg-3"><div class="showcase-card text-center"><h3>{{ proposition.nombre_centres_sante }}</h3><p>Health Centers</p></div></div>
+            <div class="col-6 col-lg-3"><div class="showcase-card text-center"><h3>{{ proposition.nombre_marches }}</h3><p>Markets</p></div></div>
         </div>
+        <div class="row g-3 mb-3">
+            <div class="col-md-6"><p class="meta-item"><span>Green area:</span> {{ proposition.surface_espaces_verts }} ha</p></div>
+            <div class="col-md-6"><p class="meta-item"><span>Road area:</span> {{ proposition.surface_routes }} ha</p></div>
+        </div>
+        <div class="description-block">
+            <h6>Proposal Narrative</h6>
+            <pre class="premium-pre">{{ proposition.description }}</pre>
+        </div>
+        <small class="text-muted">Generated on {{ proposition.date_generation|date:"d/m/Y à H:i" }}</small>
     </div>
 {% else %}
-    <div class="alert alert-warning mb-4">
-        <i class="bi bi-exclamation-triangle"></i> 
-        Aucune proposition d'aménagement générée pour le moment.
-        <a href="#" onclick="document.querySelector('form[action*=generer]').submit(); return false;" class="alert-link">
-            Générer une proposition maintenant
-        </a>
+    <div class="premium-alert alert alert-warning mb-4">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        No proposal generated yet. Use the action panel to create one.
     </div>
 {% endif %}
 
-<!-- Images générées -->
 {% if images %}
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-info text-white">
-            <h5 class="mb-0"><i class="bi bi-image"></i> Prompts d'images générées</h5>
+    <div class="premium-panel mb-4">
+        <div class="section-head mb-3">
+            <h2><i class="bi bi-image me-2"></i>Generated Image Prompts</h2>
         </div>
-        <div class="card-body">
+        <div class="content-stack">
             {% for image in images %}
-                <div class="card mb-3 bg-light">
-                    <div class="card-body">
-                        <p class="card-text" style="white-space: pre-wrap; font-size: 0.9rem;">{{ image.prompt }}</p>
-                        <small class="text-muted">Généré le {{ image.date_generation|date:"d/m/Y à H:i" }}</small>
-                    </div>
+                <div class="project-card">
+                    <pre class="premium-pre mb-2">{{ image.prompt }}</pre>
+                    <small class="text-muted">Generated on {{ image.date_generation|date:"d/m/Y à H:i" }}</small>
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endif %}
 
-<!-- Historique -->
-<div class="card shadow-sm">
-    <div class="card-header bg-secondary text-white">
-        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Historique des actions</h5>
+<div class="premium-panel">
+    <div class="section-head mb-3">
+        <h2><i class="bi bi-clock-history me-2"></i>Project History</h2>
     </div>
-    <div class="card-body">
-        {% if historique %}
-            <div class="list-group">
-                {% for action in historique %}
-                    <div class="list-group-item">
-                        <div class="d-flex w-100 justify-content-between">
+    {% if historique %}
+        <div class="timeline-feed">
+            {% for action in historique %}
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="bi bi-activity"></i></div>
+                    <div class="timeline-body">
+                        <div class="d-flex justify-content-between flex-wrap gap-2">
                             <strong>{{ action.get_action_display }}</strong>
                             <small class="text-muted">{{ action.date_action|date:"d/m/Y H:i" }}</small>
                         </div>
-                        <p class="mb-0 small mt-1">{{ action.description }}</p>
+                        <p class="mb-0">{{ action.description }}</p>
                     </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-muted">Aucune action enregistrée.</p>
-        {% endif %}
-    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state compact">
+            <i class="bi bi-clock-history"></i>
+            <h4>No history yet</h4>
+            <p>Actions for this project will appear here.</p>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

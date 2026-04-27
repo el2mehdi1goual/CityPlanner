@@ -4,6 +4,20 @@
 
 // Message d'alerte auto-hide
 document.addEventListener('DOMContentLoaded', function() {
+    // Navbar premium scroll state
+    const premiumNavbar = document.getElementById('appNavbar');
+    if (premiumNavbar) {
+        const onNavbarScroll = () => {
+            if (window.scrollY > 24) {
+                premiumNavbar.classList.add('is-scrolled');
+            } else {
+                premiumNavbar.classList.remove('is-scrolled');
+            }
+        };
+        onNavbarScroll();
+        window.addEventListener('scroll', onNavbarScroll);
+    }
+
     // Auto-hide des alertes après 5 secondes
     const alerts = document.querySelectorAll('.alert');
     alerts.forEach(alert => {

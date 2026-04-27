@@ -1,37 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}Confirmer la suppression - AI Urban Design Planner{% endblock %}
+{% block title %}Delete Project | CityPlanner{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
-    <div class="card shadow" style="width: 100%; max-width: 500px;">
-        <div class="card-body p-5">
-            <div class="alert alert-danger" role="alert">
-                <i class="bi bi-exclamation-triangle"></i> Attention!
-            </div>
-            
-            <h2 class="card-title text-center mb-4">Supprimer le projet</h2>
-            
-            <p class="mb-3">
-                Êtes-vous sûr de vouloir supprimer le projet <strong>"{{ projet.titre }}"</strong> ?
-            </p>
-            
-            <p class="text-muted small mb-4">
-                Cette action est irréversible. Tous les données associées à ce projet seront également supprimées.
-            </p>
-            
-            <div class="d-grid gap-2">
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-lg">
-                        <i class="bi bi-trash"></i> Confirmer la suppression
-                    </button>
-                </form>
-                <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-secondary btn-lg">
-                    <i class="bi bi-x-circle"></i> Annuler
-                </a>
-            </div>
+<section class="auth-shell d-flex align-items-center justify-content-center">
+    <div class="auth-card auth-card-wide">
+        <div class="warning-head text-center mb-4">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <h1 class="auth-title mt-3">Delete Project</h1>
+            <p class="auth-subtitle mb-0">This action is permanent and cannot be undone.</p>
+        </div>
+
+        <div class="premium-alert alert alert-danger mb-4">
+            You are about to delete <strong>"{{ projet.titre }}"</strong> and all associated generated data.
+        </div>
+
+        <div class="d-grid gap-2">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100">
+                    <i class="bi bi-trash me-1"></i> Confirm deletion
+                </button>
+            </form>
+            <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-premium-ghost w-100">
+                <i class="bi bi-x-circle me-1"></i> Cancel
+            </a>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

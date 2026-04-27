@@ -703,3 +703,336 @@ footer {
         padding: 3.5rem 0;
     }
 }
+
+/* ========================================
+   Global App Design System
+   ======================================== */
+
+body {
+    background: linear-gradient(180deg, #051126 0%, #081a34 100%);
+    color: #eef5ff;
+}
+
+.app-main {
+    padding-top: 6.7rem !important;
+}
+
+.app-messages {
+    padding-top: 6rem;
+}
+
+.app-navbar {
+    background: rgba(5, 16, 34, 0.6);
+}
+
+.premium-dropdown {
+    background: #0d2342;
+    border: 1px solid rgba(191, 212, 247, 0.2);
+}
+
+.premium-dropdown .dropdown-item {
+    color: #dce9ff;
+}
+
+.premium-dropdown .dropdown-item:hover {
+    background: rgba(131, 227, 188, 0.13);
+    color: #ffffff;
+}
+
+.premium-link {
+    color: #9feecd;
+    text-decoration: none;
+}
+
+.premium-link:hover {
+    color: #cbffe8;
+}
+
+.premium-panel {
+    border-radius: var(--city-radius-xl);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(204, 222, 255, 0.16);
+    box-shadow: var(--city-shadow);
+    padding: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.premium-panel-body {
+    padding: clamp(0.6rem, 2vw, 1rem);
+}
+
+.premium-alert {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(190, 212, 250, 0.18);
+    color: #e7f1ff;
+    border-left-width: 4px;
+}
+
+.page-hero {
+    background: linear-gradient(135deg, rgba(18, 49, 88, 0.74), rgba(19, 90, 73, 0.62));
+    border: 1px solid rgba(174, 238, 211, 0.22);
+    border-radius: var(--city-radius-xl);
+    padding: clamp(1.2rem, 3vw, 2rem);
+    margin-bottom: 1.35rem;
+}
+
+.page-title {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin: 0.3rem 0 0.35rem;
+}
+
+.page-subtitle {
+    color: #c7d8f2;
+    margin: 0;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-head h2 {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+}
+
+.content-stack {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(205, 223, 255, 0.16);
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    position: relative;
+}
+
+.stat-card p {
+    margin: 0;
+    color: #bdd0ed;
+    font-size: 0.88rem;
+}
+
+.stat-card h3 {
+    margin: 0.35rem 0 0;
+    font-size: 1.8rem;
+}
+
+.stat-card i {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: #96f4cc;
+}
+
+.project-card {
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(203, 220, 255, 0.16);
+    padding: 1rem;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(133, 239, 197, 0.38);
+}
+
+.project-meta {
+    color: #c7d8f2;
+    font-size: 0.9rem;
+    margin-bottom: 0.55rem;
+}
+
+.premium-badge {
+    display: inline-flex;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 241, 202, 0.4);
+    background: rgba(43, 179, 125, 0.2);
+    color: #b8fce0;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.78rem;
+}
+
+.empty-state {
+    text-align: center;
+    border-radius: var(--city-radius-lg);
+    border: 1px dashed rgba(183, 207, 246, 0.36);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 2.2rem 1rem;
+}
+
+.empty-state.compact {
+    padding: 1.4rem 1rem;
+}
+
+.empty-state i {
+    font-size: 2rem;
+    color: #9ef1cb;
+    margin-bottom: 0.6rem;
+    display: block;
+}
+
+.premium-form .form-control,
+.premium-form .form-select {
+    min-height: 2.9rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgba(195, 215, 247, 0.28);
+    background: rgba(6, 22, 45, 0.8);
+    color: #ebf4ff;
+}
+
+.premium-form .form-control::placeholder {
+    color: #9fb1cf;
+}
+
+.premium-form .form-control:focus,
+.premium-form .form-select:focus {
+    border-color: rgba(133, 239, 197, 0.75);
+    box-shadow: 0 0 0 0.2rem rgba(77, 199, 147, 0.22);
+}
+
+.premium-form textarea.form-control {
+    min-height: 120px;
+}
+
+.premium-table-wrap {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.premium-table thead th {
+    background: rgba(255, 255, 255, 0.1);
+    color: #eaf3ff;
+    border-bottom: 1px solid rgba(187, 209, 246, 0.22);
+    font-weight: 600;
+}
+
+.premium-table tbody td {
+    color: #d9e7fa;
+    border-color: rgba(188, 210, 247, 0.14);
+    background: rgba(5, 18, 38, 0.4);
+}
+
+.premium-table tbody tr:hover td {
+    background: rgba(27, 56, 99, 0.4);
+}
+
+.meta-item {
+    margin: 0;
+    color: #d8e6fa;
+}
+
+.meta-item span {
+    color: #9cb2d5;
+}
+
+.description-block {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(195, 217, 252, 0.14);
+    border-radius: 0.85rem;
+    padding: 0.9rem 1rem;
+}
+
+.description-block h6 {
+    color: #9ef0cc;
+    margin-bottom: 0.5rem;
+}
+
+.premium-pre {
+    margin: 0;
+    white-space: pre-wrap;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(184, 205, 241, 0.2);
+    background: rgba(4, 16, 34, 0.7);
+    color: #d6e6ff;
+    padding: 0.8rem;
+    font-size: 0.88rem;
+}
+
+.timeline-feed {
+    display: grid;
+    gap: 1rem;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.7rem;
+}
+
+.timeline-dot {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(146, 239, 199, 0.5);
+    background: rgba(45, 184, 129, 0.2);
+    color: #9cf3cb;
+}
+
+.timeline-body {
+    border: 1px solid rgba(198, 217, 250, 0.16);
+    border-radius: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.8rem 0.9rem;
+}
+
+.auth-shell {
+    min-height: calc(100vh - 16rem);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(198, 216, 249, 0.2);
+    background: rgba(8, 26, 52, 0.82);
+    box-shadow: var(--city-shadow);
+    padding: clamp(1.2rem, 4vw, 2rem);
+}
+
+.auth-card-wide {
+    max-width: 560px;
+}
+
+.auth-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin: 0 0 0.25rem;
+}
+
+.auth-subtitle {
+    color: #c3d5f0;
+}
+
+.divider-soft {
+    border-color: rgba(192, 212, 245, 0.25);
+}
+
+.warning-head i {
+    font-size: 2.1rem;
+    color: #ff9e9e;
+}
+
+.error-shell {
+    min-height: calc(100vh - 17rem);
+    display: grid;
+    align-items: center;
+}
+
+.error-icon {
+    font-size: 3rem;
+    color: #f5b3b3;
+    margin-bottom: 0.7rem;
+}

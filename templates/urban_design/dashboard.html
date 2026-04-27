@@ -1,98 +1,88 @@
 {% extends "base.html" %}
 
-{% block title %}Tableau de bord - AI Urban Design Planner{% endblock %}
+{% block title %}Dashboard | CityPlanner{% endblock %}
 
 {% block content %}
-<div class="mb-5">
-    <h1 class="mb-4">
-        <i class="bi bi-speedometer2"></i> Bienvenue, {{ user.first_name|default:user.username }}!
-    </h1>
-    
-    <!-- Statistiques -->
-    <div class="row mb-5">
-        <div class="col-md-6 col-lg-3 mb-3">
-            <div class="card border-0 shadow-sm bg-primary text-white">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Projets créés</h5>
-                    <h2 class="mb-0">{{ total_projets }}</h2>
-                </div>
-            </div>
+<section class="page-hero">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+        <div>
+            <span class="section-kicker">Workspace Overview</span>
+            <h1 class="page-title"><i class="bi bi-speedometer2 me-2"></i>Welcome, {{ user.first_name|default:user.username }}</h1>
+            <p class="page-subtitle">Track planning progress, launch simulations, and monitor project outcomes.</p>
         </div>
-        <div class="col-md-6 col-lg-3 mb-3">
-            <div class="card border-0 shadow-sm bg-success text-white">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Propositions générées</h5>
-                    <h2 class="mb-0">{{ total_propositions }}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-3">
-            <div class="card border-0 shadow-sm bg-info text-white">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Dernière activité</h5>
-                    <p class="mb-0 small">Aménagement urbain</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-3">
-            <div class="card border-0 shadow-sm bg-warning text-dark">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Favoris</h5>
-                    <h2 class="mb-0">0</h2>
-                </div>
-            </div>
+        <div class="action-bar">
+            <a href="{% url 'projet_create' %}" class="btn btn-premium-primary">
+                <i class="bi bi-plus-circle me-1"></i> Create New Project
+            </a>
+            <a href="{% url 'projet_list' %}" class="btn btn-premium-ghost">
+                <i class="bi bi-folder me-1"></i> Browse Projects
+            </a>
         </div>
     </div>
-    
-    <!-- Bouton créer projet -->
-    <div class="mb-5">
-        <a href="{% url 'projet_create' %}" class="btn btn-primary btn-lg">
-            <i class="bi bi-plus-circle"></i> Créer un nouveau projet
-        </a>
-    </div>
-    
-    <!-- Derniers projets -->
-    {% if derniers_projets %}
-        <h3 class="mb-4">
-            <i class="bi bi-clock-history"></i> Derniers projets
-        </h3>
-        <div class="row">
-            {% for projet in derniers_projets %}
-                <div class="col-md-6 col-lg-4 mb-3">
-                    <div class="card h-100 shadow-sm hover-shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ projet.titre }}</h5>
-                            <p class="card-text text-muted small">
-                                {{ projet.nombre_familles }} familles • 
-                                {{ projet.get_priorite_display }}
-                            </p>
-                            <p class="card-text small">
-                                <strong>Budget:</strong> {{ projet.get_niveau_budget_display }}<br>
-                                <strong>Terrain:</strong> {{ projet.surface_terrain }} ha
-                            </p>
-                            <small class="text-muted d-block mb-3">
-                                Créé le {{ projet.date_creation|date:"d/m/Y" }}
-                            </small>
-                            <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-sm btn-outline-primary">
-                                Voir détails
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle"></i> Vous n'avez pas encore créé de projets. 
-            <a href="{% url 'projet_create' %}" class="alert-link">Créer un projet maintenant</a>
-        </div>
-    {% endif %}
-</div>
+</section>
 
-<style>
-    .hover-shadow:hover {
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-        transition: box-shadow 0.3s ease;
-    }
-</style>
+<section class="content-stack">
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="stat-card">
+                <p>Projects Created</p>
+                <h3>{{ total_projets }}</h3>
+                <i class="bi bi-folder2-open"></i>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="stat-card">
+                <p>Proposals Generated</p>
+                <h3>{{ total_propositions }}</h3>
+                <i class="bi bi-diagram-3-fill"></i>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="stat-card">
+                <p>Planning Focus</p>
+                <h3>Urban</h3>
+                <i class="bi bi-building-up"></i>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="stat-card">
+                <p>Optimization Mode</p>
+                <h3>Active</h3>
+                <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="premium-panel mt-4">
+        <div class="section-head mb-3">
+            <h2><i class="bi bi-clock-history me-2"></i>Recent Projects</h2>
+            <a href="{% url 'projet_list' %}" class="premium-link">View all</a>
+        </div>
+
+        {% if derniers_projets %}
+            <div class="row g-4">
+                {% for projet in derniers_projets %}
+                    <div class="col-md-6 col-xl-4">
+                        <article class="project-card h-100">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="mb-0">{{ projet.titre }}</h5>
+                                <span class="premium-badge">{{ projet.get_priorite_display }}</span>
+                            </div>
+                            <p class="project-meta">{{ projet.nombre_familles }} families • {{ projet.surface_terrain }} ha • {{ projet.get_niveau_budget_display }}</p>
+                            <small class="text-muted d-block mb-3">Created on {{ projet.date_creation|date:"d/m/Y" }}</small>
+                            <a href="{% url 'projet_detail' projet.pk %}" class="btn btn-premium-ghost btn-sm">Open project</a>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <i class="bi bi-inboxes"></i>
+                <h4>No projects yet</h4>
+                <p>Start your first smart urban simulation and generate your first proposal.</p>
+                <a href="{% url 'projet_create' %}" class="btn btn-premium-primary">Create project</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}

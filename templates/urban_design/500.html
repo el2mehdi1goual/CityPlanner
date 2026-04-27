@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Erreur serveur - AI Urban Design Planner{% endblock %}
+{% block title %}500 | CityPlanner{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
-    <div class="text-center">
-        <h1 class="display-1 text-danger"><i class="bi bi-exclamation-octagon"></i></h1>
-        <h2 class="mb-4">Erreur 500</h2>
-        <p class="mb-4 lead">Une erreur serveur s'est produite.</p>
-        
-        <div class="btn-group" role="group">
-            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
-                <i class="bi bi-house"></i> Accueil
-            </a>
-            <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-lg">
-                <i class="bi bi-speedometer2"></i> Tableau de bord
-            </a>
+<section class="error-shell">
+    <div class="premium-panel text-center">
+        <i class="bi bi-exclamation-octagon error-icon"></i>
+        <h1 class="page-title mb-2">Error 500</h1>
+        <p class="page-subtitle mb-4">A server issue occurred. Please try again shortly.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a href="{% url 'home' %}" class="btn btn-premium-primary"><i class="bi bi-house me-1"></i> Home</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-premium-ghost"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
