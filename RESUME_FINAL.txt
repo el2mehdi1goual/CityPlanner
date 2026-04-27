@@ -15,7 +15,7 @@ Nom du projet:              AI Urban Design Planner
 Version:                    1.0.0
 Statut:                     ✅ Production Ready
 Date de création:           27 Avril 2026
-
+ 
 Langage:                    Python 3.8+
 Framework:                  Django 4.2
 Base de données:            MySQL 5.7+

@@ -5,6 +5,10 @@ Django settings for AI Urban Design Planner project.
 import os
 from pathlib import Path
 
+# Use PyMySQL as MySQL driver
+import pymysql
+pymysql.install_as_MySQLdb()
+
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -60,12 +64,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ai_urban_design',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
