@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}CityPlanner | Design Better Communities with Intelligence{% endblock %}
+{% block body_class %}cityplanner-home{% endblock %}
+{% block main_class %}p-0{% endblock %}
+{% block container_class %}container-fluid p-0{% endblock %}
+
+{% block navbar %}
+<!-- Premium Sticky Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top premium-navbar" id="premiumNavbar">
+    <div class="container">
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="{% url 'home' %}">
+            <span class="brand-mark"><i class="bi bi-buildings-fill"></i></span>
+            <span>CityPlanner</span>
+        </a>
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#premiumNav">
+            <i class="bi bi-list fs-2 text-white"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="premiumNav">
+            <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#vision">Vision</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+            <div class="d-flex flex-column flex-lg-row gap-2">
+                <a href="{% url 'login' %}" class="btn btn-link nav-login">Login</a>
+                <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-premium-primary">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block messages %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section position-relative overflow-hidden" id="home">
+    <div class="hero-layer hero-grid"></div>
+    <div class="hero-layer hero-glow"></div>
+    <div class="container position-relative z-2">
+        <div class="row align-items-center min-vh-100 py-5 g-5">
+            <div class="col-lg-6">
+                <span class="hero-pill">Urban Intelligence Platform</span>
+                <h1 class="hero-title mt-4">Design Better Communities with Intelligence</h1>
+                <p class="hero-subtitle mt-4">
+                    CityPlanner helps planners and decision-makers create sustainable and organized neighborhoods
+                    for relocated populations through data-driven proposals and smart simulations.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="{% if user.is_authenticated %}{% url 'projet_create' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-premium-primary btn-lg">
+                        Start New Plan
+                    </a>
+                    <a href="#features" class="btn btn-premium-ghost btn-lg">Explore Features</a>
+                </div>
+                <div class="d-flex flex-wrap gap-3 mt-5">
+                    <div class="mini-stat-card">
+                        <h4>+320</h4>
+                        <p>Projects Simulated</p>
+                    </div>
+                    <div class="mini-stat-card">
+                        <h4>95%</h4>
+                        <p>Planning Speed Boost</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-visual-card">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?auto=format&fit=crop&w=1200&q=80" alt="Smart city urban planning visual" class="img-fluid rounded-4 hero-visual-image">
+                    <div class="floating-card floating-card-top">
+                        <i class="bi bi-diagram-3"></i>
+                        <div>
+                            <strong>AI Scenario Engine</strong>
+                            <small>Adaptive neighborhood generation</small>
+                        </div>
+                    </div>
+                    <div class="floating-card floating-card-bottom">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <strong>Land-aware Planning</strong>
+                            <small>Optimized for available area</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section-shell" id="about">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="section-kicker">About CityPlanner</p>
+                <h2 class="section-title">A Smarter Mission for Urban Resettlement Planning</h2>
+                <p class="section-text">
+                    CityPlanner transforms complex planning variables into practical neighborhood proposals.
+                    By combining demographic needs, land constraints, budget levels, and development priorities,
+                    the platform enables teams to make confident and socially responsible planning decisions faster.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-grid">
+                    <div class="about-mini-card">
+                        <i class="bi bi-people-fill"></i>
+                        <h5>Population-first Logic</h5>
+                        <p>Design aligned with family structures and density targets.</p>
+                    </div>
+                    <div class="about-mini-card">
+                        <i class="bi bi-tree-fill"></i>
+                        <h5>Balanced Sustainability</h5>
+                        <p>Green areas and public spaces integrated from the start.</p>
+                    </div>
+                    <div class="about-mini-card">
+                        <i class="bi bi-cash-coin"></i>
+                        <h5>Budget-aware Scenarios</h5>
+                        <p>Recommendations scaled to available financial capacity.</p>
+                    </div>
+                    <div class="about-mini-card">
+                        <i class="bi bi-shield-check"></i>
+                        <h5>Decision Confidence</h5>
+                        <p>Structured outputs designed to support transparent choices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section-shell section-muted" id="features">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="section-kicker">Core Capabilities</p>
+            <h2 class="section-title">Premium Features for Expert Urban Teams</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <article class="feature-card h-100">
+                    <span class="feature-icon"><i class="bi bi-sliders"></i></span>
+                    <h4>Smart Project Input</h4>
+                    <p>Capture demographic, land, budget, and strategic priorities in one guided flow.</p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="feature-card h-100">
+                    <span class="feature-icon"><i class="bi bi-cpu-fill"></i></span>
+                    <h4>Automated Urban Proposal</h4>
+                    <p>Generate housing, schools, health centers, markets, roads, and green allocations.</p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="feature-card h-100">
+                    <span class="feature-icon"><i class="bi bi-easel2-fill"></i></span>
+                    <h4>Neighborhood Visualization</h4>
+                    <p>Turn planning outcomes into clear visual guidance for stakeholder communication.</p>
+                </article>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <article class="feature-card h-100">
+                    <span class="feature-icon"><i class="bi bi-clock-history"></i></span>
+                    <h4>Project History & Tracking</h4>
+                    <p>Review project iterations, compare scenarios, and preserve planning decisions.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="section-shell" id="vision">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="section-kicker">Workflow</p>
+            <h2 class="section-title">Urban Planning Process in Five Steps</h2>
+        </div>
+        <div class="process-track">
+            <div class="process-step"><span>1</span><p>Input project data</p></div>
+            <div class="process-step"><span>2</span><p>Analyze requirements</p></div>
+            <div class="process-step"><span>3</span><p>Generate urban proposal</p></div>
+            <div class="process-step"><span>4</span><p>Visualize neighborhood</p></div>
+            <div class="process-step"><span>5</span><p>Save and review project</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Section -->
+<section class="section-shell section-muted">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <p class="section-kicker">Why CityPlanner</p>
+                <h2 class="section-title">Impactful Decisions, Faster and Smarter</h2>
+            </div>
+            <div class="col-lg-7">
+                <div class="impact-list">
+                    <div class="impact-item"><i class="bi bi-lightning-charge-fill"></i><span>Faster planning with automated proposal generation</span></div>
+                    <div class="impact-item"><i class="bi bi-grid-1x2-fill"></i><span>Better organization of urban components and services</span></div>
+                    <div class="impact-item"><i class="bi bi-heart-pulse-fill"></i><span>Stronger social impact through inclusive infrastructure</span></div>
+                    <div class="impact-item"><i class="bi bi-recycle"></i><span>Sustainable design mindset with integrated green spaces</span></div>
+                    <div class="impact-item"><i class="bi bi-bar-chart-fill"></i><span>Reliable decision support for planners and policymakers</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="section-shell">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-6 col-lg-3">
+                <div class="showcase-card text-center">
+                    <h3 class="counter" data-target="320">0</h3>
+                    <p>Projects simulated</p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="showcase-card text-center">
+                    <h3 class="counter" data-target="28">0</h3>
+                    <p>Planning factors analyzed</p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="showcase-card text-center">
+                    <h3 class="counter" data-target="1450">0</h3>
+                    <p>Urban components generated</p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="showcase-card text-center">
+                    <h3 class="counter" data-target="4">0</h3>
+                    <p>x faster decision support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call To Action Section -->
+<section class="section-shell pb-5" id="contact">
+    <div class="container">
+        <div class="cta-block text-center">
+            <p class="section-kicker mb-2">Ready to Start?</p>
+            <h2>Plan Future-Ready Neighborhoods with CityPlanner</h2>
+            <p>Launch your first smart urban proposal and align your next project with data-driven impact.</p>
+            <a href="{% if user.is_authenticated %}{% url 'projet_create' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-premium-primary btn-lg mt-2">
+                Get Started Now
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Footer -->
+<footer class="premium-footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h5 class="d-flex align-items-center gap-2"><i class="bi bi-buildings-fill"></i> CityPlanner</h5>
+                <p>Smart urban planning for resilient, inclusive, and sustainable communities.</p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6>Navigation</h6>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#features">Features</a>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6>Platform</h6>
+                <a href="#vision">Vision</a>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Get Started</a>
+            </div>
+            <div class="col-lg-4">
+                <h6>Contact</h6>
+                <p class="mb-1">hello@cityplanner.ai</p>
+                <p class="mb-3">Urban Innovation District</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" aria-label="Github"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="mb-0 text-center">&copy; 2026 CityPlanner. All rights reserved.</p>
+    </div>
+</footer>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Navbar style change on scroll
+    const navbar = document.getElementById("premiumNavbar");
+    const onScroll = () => {
+        if (window.scrollY > 24) {
+            navbar.classList.add("is-scrolled");
+        } else {
+            navbar.classList.remove("is-scrolled");
+        }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+
+    // Counter animation for showcase cards
+    const counters = document.querySelectorAll(".counter");
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            const duration = 1100;
+            let start = null;
+            const step = (timestamp) => {
+                if (!start) start = timestamp;
+                const progress = Math.min((timestamp - start) / duration, 1);
+                el.textContent = Math.floor(progress * target).toLocaleString();
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+            obs.unobserve(el);
+        });
+    }, { threshold: 0.45 });
+    counters.forEach((counter) => observer.observe(counter));
+});
+</script>
+{% endblock %}

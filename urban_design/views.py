@@ -70,6 +70,11 @@ def logout_view(request):
 
 # ===== VUE DASHBOARD =====
 
+def home_view(request):
+    """Landing page publique premium."""
+    return render(request, 'urban_design/home.html')
+
+
 @login_required(login_url='login')
 def dashboard_view(request):
     """Vue du tableau de bord"""
