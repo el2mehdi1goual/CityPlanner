@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -264,13 +265,18 @@ def generer_prompt_image_view(request, pk):
         )
     
     # Générer le prompt
-    prompt = generer_prompt_image(proposition)
+    prompt, meta = generer_prompt_image(proposition, return_meta=True)
     
     # Sauvegarder l'image générée
     image = ImageGeneree.objects.create(
         projet=projet,
         prompt=prompt
     )
+
+    if meta.get('provider') == 'gemini':
+        messages.success(request, "Image prompt generated with Gemini.")
+    else:
+        messages.warning(request, "Gemini was not used (missing API key or error). Fallback prompt generated.")
     
     # Ajouter une entrée dans l'historique
     HistoriqueProjet.objects.create(

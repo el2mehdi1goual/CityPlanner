@@ -12,6 +12,14 @@ pymysql.install_as_MySQLdb()
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from `.env` (local dev)
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(dotenv_path=str(BASE_DIR / ".env"), override=False)
+except Exception:
+    pass
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-8f^7@k#z$9^pq&*l+m!n@j#$%^&*()_+z-x/c,v.b/n'
 
