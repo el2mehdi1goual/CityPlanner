@@ -45,7 +45,8 @@ db.sqlite3
 *~
 
 # Environnement
-.env
+# Note: .env is tracked as a template with placeholder values
+# .env.local and .env.*.local are for local overrides (ignored)
 .env.local
 .env.*.local
 
