@@ -21,4 +21,5 @@ urlpatterns = [
     # Génération
     path('projets/<int:pk>/generer-proposition/', views.generer_proposition_view, name='generer_proposition'),
     path('projets/<int:pk>/generer-image-prompt/', views.generer_prompt_image_view, name='generer_prompt_image'),
+    path('projets/<int:pk>/generer-image/', views.generer_image_openai_view, name='generer_image'),
 ]

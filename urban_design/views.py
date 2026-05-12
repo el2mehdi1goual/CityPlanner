@@ -12,6 +12,7 @@ from django.views.decorators.http import require_http_methods
 from .models import ProjetUrbain, PropositionAmenagement, ImageGeneree, HistoriqueProjet
 from .forms import ProjetUrbainForm, RegisterForm, LoginForm
 from .utils import generer_proposition_amenagement, generer_prompt_image
+from services.openai_image_service import generate_image_from_prompt
 
 
 # ===== VUE AUTHENTIFICATION =====
@@ -284,6 +285,67 @@ def generer_prompt_image_view(request, pk):
         action='prompt_genere',
         description='Prompt image généré'
     )
+    
+    return redirect('projet_detail', pk=projet.pk)
+
+
+# ===== VUES GÉNÉRATION D'IMAGE AVEC HUGGING FACE =====
+
+@login_required(login_url='login')
+@require_http_methods(["POST"])
+def generer_image_openai_view(request, pk):
+    """
+    Génère une image à partir du prompt avec OpenAI
+    
+    Récupère l'ImageGeneree la plus récente pour le projet et
+    utilise son prompt pour générer l'image via OpenAI DALL-E
+    """
+    projet = get_object_or_404(ProjetUrbain, pk=pk, utilisateur=request.user)
+    
+    try:
+        # Vérifier qu'une image avec prompt existe
+        image_entry = ImageGeneree.objects.filter(projet=projet).order_by('-date_generation').first()
+        if not image_entry:
+            messages.error(request, "Aucun prompt image trouvé. Générez d'abord un prompt.")
+            return redirect('projet_detail', pk=projet.pk)
+        
+        if not image_entry.prompt:
+            messages.error(request, "Le prompt d'image est vide.")
+            return redirect('projet_detail', pk=projet.pk)
+        
+        # Générer l'image avec OpenAI
+        image_path = generate_image_from_prompt(image_entry.prompt)
+        
+        # Mettre à jour l'ImageGeneree avec le fichier image
+        image_entry.image = image_path
+        image_entry.statut = 'image_generated'
+        image_entry.save()
+        
+        # Ajouter une entrée dans l'historique
+        HistoriqueProjet.objects.create(
+            projet=projet,
+            action='image_generee',
+            description='Image générée avec OpenAI DALL-E 3 (prompt amélioré par GPT-4)'
+        )
+        
+        messages.success(request, "Image générée avec succès!")
+        
+    except RuntimeError as e:
+        # Erreur avec OPENAI_API_KEY ou configuration
+        messages.error(request, f"Erreur de configuration: {str(e)}")
+        HistoriqueProjet.objects.create(
+            projet=projet,
+            action='image_generee',
+            description=f'Erreur lors de la génération: {str(e)}'
+        )
+    except Exception as e:
+        # Autres erreurs (réseau, timeout, etc.)
+        messages.error(request, f"Erreur lors de la génération: {str(e)}")
+        HistoriqueProjet.objects.create(
+            projet=projet,
+            action='image_generee',
+            description=f'Erreur lors de la génération: {str(e)}'
+        )
     
     return redirect('projet_detail', pk=projet.pk)
 

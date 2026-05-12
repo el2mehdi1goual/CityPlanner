@@ -71,9 +71,16 @@ class ImageGeneree(models.Model):
     """
     Modèle représentant les prompts d'images générées pour un projet
     """
+    STATUS_CHOICES = [
+        ('prompt_only', 'Prompt uniquement'),
+        ('image_generated', 'Image générée'),
+    ]
+    
     projet = models.ForeignKey(ProjetUrbain, on_delete=models.CASCADE, related_name='images_generees')
     prompt = models.TextField()
     url_image = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='generated_images/', blank=True, null=True)
+    statut = models.CharField(max_length=30, choices=STATUS_CHOICES, default='prompt_only')
     date_generation = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -96,6 +103,7 @@ class HistoriqueProjet(models.Model):
         ('proposition_generee', 'Proposition générée'),
         ('proposition_regeneree', 'Proposition regénérée'),
         ('prompt_genere', 'Prompt image généré'),
+        ('image_generee', 'Image générée'),
     ]
     
     projet = models.ForeignKey(ProjetUrbain, on_delete=models.CASCADE, related_name='historique')

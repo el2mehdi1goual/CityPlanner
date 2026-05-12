@@ -26,12 +26,21 @@
                 <li class="nav-item"><a class="nav-link" href="#vision">Vision</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
+            {% if not user.is_authenticated %}
             <div class="d-flex flex-column flex-lg-row gap-2">
                 <a href="{% url 'login' %}" class="btn btn-link nav-login">Login</a>
-                <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-premium-primary">
+                <a href="{% url 'register' %}" class="btn btn-premium-primary">
                     Get Started
                 </a>
             </div>
+            {% else %}
+            <div class="d-flex flex-column flex-lg-row gap-2">
+                <a href="{% url 'dashboard' %}" class="btn btn-premium-primary">
+                    Dashboard
+                </a>
+                <a href="{% url 'logout' %}" class="btn btn-link nav-login">Logout</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -54,12 +63,21 @@
                     CityPlanner helps planners and decision-makers create sustainable and organized neighborhoods
                     for relocated populations through data-driven proposals and smart simulations.
                 </p>
+                {% if not user.is_authenticated %}
                 <div class="d-flex flex-wrap gap-3 mt-4">
-                    <a href="{% if user.is_authenticated %}{% url 'projet_create' %}{% else %}{% url 'register' %}{% endif %}" class="btn btn-premium-primary btn-lg">
+                    <a href="{% url 'register' %}" class="btn btn-premium-primary btn-lg">
                         Start New Plan
                     </a>
                     <a href="#features" class="btn btn-premium-ghost btn-lg">Explore Features</a>
                 </div>
+                {% else %}
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="{% url 'projet_create' %}" class="btn btn-premium-primary btn-lg">
+                        Start New Plan
+                    </a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-premium-ghost btn-lg">Go to Dashboard</a>
+                </div>
+                {% endif %}
                 <div class="d-flex flex-wrap gap-3 mt-5">
                     <div class="mini-stat-card">
                         <h4>+320</h4>

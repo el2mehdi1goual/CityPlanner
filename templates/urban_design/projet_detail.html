@@ -84,6 +84,19 @@
                     <i class="bi bi-image me-1"></i> Generate image prompt
                 </button>
             {% endif %}
+
+            {% if images and images.0.prompt %}
+                <form method="post" action="{% url 'generer_image' projet.pk %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-premium-primary w-100">
+                        <i class="bi bi-stars me-1"></i> Generate image from prompt
+                    </button>
+                </form>
+            {% else %}
+                <button class="btn btn-premium-primary w-100 mt-2" disabled title="Generate a prompt first">
+                    <i class="bi bi-stars me-1"></i> Generate image from prompt
+                </button>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -128,6 +141,18 @@
                     <small class="text-muted">Generated on {{ image.date_generation|date:"d/m/Y à H:i" }}</small>
                 </div>
             {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% if images and images.0.image %}
+    <div class="premium-panel mb-4">
+        <div class="section-head mb-3">
+            <h2><i class="bi bi-image-fill me-2"></i>Generated Image</h2>
+        </div>
+        <div class="image-display-container">
+            <img src="{{ images.0.image.url }}" alt="Generated image for {{ projet.titre }}" class="img-fluid rounded">
+            <small class="text-muted d-block mt-2">Generated from prompt on {{ images.0.date_generation|date:"d/m/Y à H:i" }}</small>
         </div>
     </div>
 {% endif %}
