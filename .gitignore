@@ -45,9 +45,11 @@ db.sqlite3
 *~
 
 # Environnement
-# Note: .env is tracked as a template with placeholder values
-# .env.local and .env.*.local are for local overrides (ignored)
+# NEVER commit .env - it contains secret API keys and credentials!
+# Use .env.example as template for configuration
+.env
 .env.local
+.env.*.local
 .env.*.local
 
 # Système
