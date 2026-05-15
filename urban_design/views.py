@@ -298,7 +298,7 @@ def generer_image_openai_view(request, pk):
     Génère une image à partir du prompt avec OpenAI
     
     Récupère l'ImageGeneree la plus récente pour le projet et
-    utilise son prompt pour générer l'image via OpenAI DALL-E
+    utilise son prompt pour générer l'image via OpenAI (gpt-image-2 ou gpt-image-1)
     """
     projet = get_object_or_404(ProjetUrbain, pk=pk, utilisateur=request.user)
     
@@ -325,7 +325,7 @@ def generer_image_openai_view(request, pk):
         HistoriqueProjet.objects.create(
             projet=projet,
             action='image_generee',
-            description='Image générée avec OpenAI DALL-E 3 (prompt amélioré par GPT-4)'
+            description='Image générée avec OpenAI (prompt amélioré par GPT-4)'
         )
         
         messages.success(request, "Image générée avec succès!")
