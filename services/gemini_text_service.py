@@ -32,7 +32,7 @@ def _get_text_model() -> str:
         model = (env("GEMINI_TEXT_MODEL", default="") or "").strip()
         if model:
             return model if model.startswith("models/") else f"models/{model}"
-    return "models/gemini-3-flash-preview"
+    return "models/gemini-2.5-flash"
 
 
 def generate_image_prompt_from_project(project_data: dict) -> str:
